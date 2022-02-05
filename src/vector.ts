@@ -1,46 +1,75 @@
 export default class Vector {
     x: number;
     y: number;
-    mag: number;
     constructor(x: number, y: number) {
         this.x = x;
         this.y = y;
-        this.mag = Math.sqrt(x * x + y * y);
+    }
+    getMag() {
+        return Math.sqrt(this.x * this.x + this.y * this.y);
     }
     normalize(): Vector {
-        return this.div(this.mag);
+        return this.div(this.getMag());
     }
     setMag(mag: number): Vector {
         return this.normalize().mul(mag)
     }
     limit(max: number): Vector {
-        if (this.mag > max) {
+        if (this.getMag() > max) {
             return this.setMag(max);
         }
         return this;
     }
-    add(v: Vector | number): Vector {
-        if (typeof v === "number") {
-            return new Vector(this.x + v, this.y + v);
-        }
-        return new Vector(this.x + v.x, this.y + v.y);
+    static add(v1: Vector, v2: Vector): Vector {
+        return new Vector(v1.x + v2.x, v1.y + v2.y);
     }
-    sub(v: Vector | number): Vector {
-        if (typeof v === "number") {
-            return new Vector(this.x - v, this.y - v);
+    add(quantity: Vector | number): Vector {
+        if (typeof quantity === "number") {
+            this.x += quantity;
+            this.y += quantity;
+            return this
         }
-        return new Vector(this.x - v.x, this.y - v.y);
+        this.x += quantity.x;
+        this.y += quantity.y;
+        return this
     }
-    mul(v: Vector | number): Vector {
-        if (typeof v === "number") {
-            return new Vector(this.x * v, this.y * v);
-        }
-        return new Vector(this.x * v.x, this.y * v.y);
+    static sub(v1: Vector, v2: Vector): Vector {
+        return new Vector(v1.x - v2.x, v1.y - v2.y);
     }
-    div(v: Vector | number): Vector {
-        if (typeof v === "number") {
-            return new Vector(this.x / v, this.y / v);
+    sub(quantity: Vector | number): Vector {
+        if (typeof quantity === "number") {
+            this.x -= quantity;
+            this.y -= quantity;
+            return this
         }
-        return new Vector(this.x / v.x, this.y / v.y);
+        this.x -= quantity.x;
+        this.y -= quantity.y;
+        return this
+    }
+    static mul(v1: Vector, v2: Vector): Vector {
+        return new Vector(v1.x * v2.x, v1.y * v2.y);
+    }
+    mul(quantity: Vector | number): Vector {
+        if (typeof quantity === "number") {
+            this.x *= quantity;
+            this.y *= quantity;
+            return this
+        }
+        this.x *= quantity.x;
+        this.y *= quantity.y;
+        return this
+    }
+    static div(v1: Vector, v2: Vector): Vector {
+        return new Vector(v1.x / v2.x, v1.y / v2.y);
+    }
+    div(quantity: Vector | number): Vector {
+        if (typeof quantity === "number") {
+            this.x /= quantity;
+            this.y /= quantity;
+            return this
+        }
+        this.x /= quantity.x;
+        this.y /= quantity.y;
+        return this
     }
 }
