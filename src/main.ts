@@ -1,7 +1,6 @@
 import Renderer from "./renderer";
 import Updater from "./updater";
 import Orbiter from "./orbiter";
-
 class Simulation {
     renderer: Renderer
     updater: Updater = new Updater();

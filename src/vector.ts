@@ -7,6 +7,18 @@ export default class Vector {
         this.y = y;
         this.mag = Math.sqrt(x * x + y * y);
     }
+    normalize(): Vector {
+        return this.div(this.mag);
+    }
+    setMag(mag: number): Vector {
+        return this.normalize().mul(mag)
+    }
+    limit(max: number): Vector {
+        if (this.mag > max) {
+            return this.setMag(max);
+        }
+        return this;
+    }
     add(v: Vector | number): Vector {
         if (typeof v === "number") {
             return new Vector(this.x + v, this.y + v);
@@ -32,4 +44,3 @@ export default class Vector {
         return new Vector(this.x / v.x, this.y / v.y);
     }
 }
-
