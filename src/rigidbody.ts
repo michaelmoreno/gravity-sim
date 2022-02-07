@@ -14,9 +14,13 @@ export default class RigidBody {
         this.position = new Vector(x, y)
         this.mass = mass
     }
+    applyForce(force: Vector) {
+        const a = force.div(this.mass)
+        this.acceleration.add(a)
+    }
     update() {
-        const v = new Vector(randomRange(-5, 5), randomRange(-5, 5))
-        
-        this.position = this.position.add(v)
+        this.velocity.add(this.acceleration)
+        this.position.add(this.velocity)
+        this.acceleration.setMag(0)
     }
 }

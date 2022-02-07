@@ -56,7 +56,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nclas
   \**************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst vector_1 = __webpack_require__(/*! ./vector */ \"./src/vector.ts\");\nfunction randomRange(min, max) {\n    return Math.random() * (max - min) + min;\n}\nclass RigidBody {\n    constructor(x, y, mass) {\n        this.velocity = new vector_1.default(0, 0);\n        this.acceleration = new vector_1.default(0, 0);\n        this.position = new vector_1.default(x, y);\n        this.mass = mass;\n    }\n    update() {\n        const v = new vector_1.default(randomRange(-5, 5), randomRange(-5, 5));\n        this.position = this.position.add(v);\n    }\n}\nexports[\"default\"] = RigidBody;\n\n\n//# sourceURL=webpack://gravity-sim/./src/rigidbody.ts?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst vector_1 = __webpack_require__(/*! ./vector */ \"./src/vector.ts\");\nfunction randomRange(min, max) {\n    return Math.random() * (max - min) + min;\n}\nclass RigidBody {\n    constructor(x, y, mass) {\n        this.velocity = new vector_1.default(0, 0);\n        this.acceleration = new vector_1.default(0, 0);\n        this.position = new vector_1.default(x, y);\n        this.mass = mass;\n    }\n    applyForce(force) {\n        const a = force.div(this.mass);\n        this.acceleration.add(a);\n    }\n    update() {\n        this.velocity.add(this.acceleration);\n        this.position.add(this.velocity);\n        this.acceleration.setMag(0);\n    }\n}\nexports[\"default\"] = RigidBody;\n\n\n//# sourceURL=webpack://gravity-sim/./src/rigidbody.ts?");
 
 /***/ }),
 
