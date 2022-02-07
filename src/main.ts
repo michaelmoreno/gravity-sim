@@ -1,6 +1,8 @@
 import Renderer from "./renderer";
 import Updater from "./updater";
 import Orbiter from "./orbiter";
+import { randomRange, randomChoice } from "./helpers";
+
 class Simulation {
     renderer: Renderer
     updater: Updater = new Updater();
@@ -29,11 +31,20 @@ const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
 
 const sim = new Simulation(ctx);
 
+const colors = [
+    'orange',
+    'yellow',
+    'orange',
+    'tan',
+]
+
 const orbiters = []
 for (let i = 0; i < 10; i++) {
     const startX = Math.random() * canvas.width;
     const startY = Math.random() * canvas.height;
-    orbiters.push(new Orbiter(startX, startY, 10, 'orange'));
+    const color = randomChoice(colors);
+    const size = randomRange(10, 20);
+    orbiters.push(new Orbiter(startX, startY, 20, size, color));
 }
 
 orbiters.forEach(orbiter => sim.addEntity(orbiter));

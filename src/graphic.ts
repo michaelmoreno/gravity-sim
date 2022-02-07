@@ -10,7 +10,7 @@ export default class Graphic {
     }
     render(ctx: CanvasRenderingContext2D) {
         ctx.beginPath()
-        ctx.arc(this.rigidBody.position.x, this.rigidBody.position.y, 10, 0, Math.PI * 2)
+        ctx.arc(this.rigidBody.position.x, this.rigidBody.position.y, this.rigidBody.size, 0, Math.PI * 2)
         ctx.fillStyle = this.color
         ctx.fill()
         ctx.closePath()
